@@ -15,7 +15,7 @@ buildscript {
     }
 }
 
-apply plugin: "nebula.ospackage-base"
+apply plugin: 'nebula.ospackage-base'
 
 repositories {
     maven {
@@ -34,6 +34,10 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
+task doPack(type: War) {
+    archiveName "ServletGradle.war"
+}
+
 ospackage {
     packageName = 'ServletGradle'
     version = '1.0'
@@ -45,11 +49,22 @@ ospackage {
     postInstall file('scripts/rpm/postInstall.sh')
     preUninstall file('scripts/rpm/preUninstall.sh')
     postUninstall file('scripts/rpm/postUninstall.sh')
-    
+
+
     into '/var/lib/tomcat6/webapps/'
+
+    from(doPack.outputs.files) {
+        //war.archiveName = "ServletGradle.war"
+        createDirectoryEntry = true
+        user 'tomcat'
+        fileMode = 0775
+        into '/var/lib/tomcat6/webapps/'
+
+    }
+
 }
 
-task servletRpm(type: Rpm) {
+task servletRpm(type: Rpm, dependsOn: 'doPack') {
     packageName = "ServletGradle"
     arch = X86_64
 }

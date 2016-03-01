@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "Nothing to be done in utils..."
+echo "Nothing to do in utils..."
