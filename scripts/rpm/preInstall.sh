@@ -1,4 +1,4 @@
-#!/bin/bash bash
+#!/bin/bash
 echo "Installation of ServletGradle started..."
 echo "Stopping tomcat6 ..."
 /etc/init.d/tomcat6 stop

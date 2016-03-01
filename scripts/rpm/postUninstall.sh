@@ -1,4 +1,4 @@
-#!/bin/bash bash
+#!/bin/bash
 echo "Removing anything that remains..."
 rm -rf /var/lib/tomcat6/webapps/ServletGradle*
 echo "Restarting tomcat..."
