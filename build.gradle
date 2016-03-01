@@ -40,8 +40,13 @@ ospackage {
     release = 1
     os = LINUX
 
+    installUtils file('scripts/rpm/utils.sh')
+    preInstall file('scripts/rpm/preInstall.sh')
     postInstall file('scripts/rpm/postInstall.sh')
-    into '/opt/tomcat/latest/webapps'
+    preUninstall file('scripts/rpm/preUninstall.sh')
+    postUninstall file('scripts/rpm/postUninstall.sh')
+    
+    into '/var/lib/tomcat6/webapps/'
 }
 
 task servletRpm(type: Rpm) {
